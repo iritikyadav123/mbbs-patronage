@@ -1,47 +1,61 @@
 "use server"
 import prisma from "../../../../db";
-import { getServerSession } from "next-auth"
+import { getServerSession } from "next-auth";
 
-interface donationProp {
+interface DonationProp {
     name: string;
     surname: string;
-    ammount: string;
+    amount: string;
     message: string;
     address: string;
 }
 
-export async function submitDonation({ donerData }: { donerData: donationProp }) {
+export async function submitDonation({ donerData }: { donerData: DonationProp }) {
     const session = await getServerSession();
     const userEmail = session?.user?.email;
+
+    if (!userEmail) {
+        throw new Error("User is not authenticated");
+    }
+
     const user = await prisma.user.findUnique({
         where: {
-            email: userEmail?.toString()
-        }
-    })
+            email: userEmail.toString(),
+        },
+    });
+
+    if (!user) {
+        throw new Error("User not found");
+    }
 
     const donation = await prisma.donerInfo.create({
         data: {
             name: donerData.name,
             surname: donerData.surname,
-            address: donerData.surname,
-            amount: donerData.ammount,
+            address: donerData.address,
+            amount: donerData.amount,
             message: donerData.message,
-            userId: Number(user?.id)
-        }
-    })
+            userId: user.id,
+        },
+    });
     return donation.name;
-
 }
 
-export async function GetDonners() {
-     const donnerData = await prisma.donerInfo.findMany({
-        select : {
-            id : true,
-            name : true,
-            surname : true,
-            amount : true,
-            message : true,
-        }
-     })
-     return donnerData;
-}
+export async function getDonors() {
+    try {
+      const donorData = await prisma.donerInfo.findMany({
+        select: {
+          id: true,
+          name: true,
+          surname: true,
+          amount: true,
+          message: true,
+        },
+      });
+  
+      return donorData;
+    } catch (error) {
+      console.error("Error fetching donors:", error);
+      throw new Error("Failed to fetch donors");
+    }
+  }

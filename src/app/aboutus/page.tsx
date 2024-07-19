@@ -13,9 +13,9 @@ const historyData = ` Lorem ipsum dolor, sit amet consectetur adipisicing elit. 
                 Aut, modi in. Quod, aliquid. Exercitationem delectus non vitae corporis. Et, perferendis? Perferendis praesentium consequuntur officiis laboriosam ullam est tenetur perspiciatis, eius totam, quo ab, dolore blanditiis error reiciendis velit.
                 Excepturi, quam magni delectus, expedita nostrum nesciunt corrupti molestiae animi omnis tempora eveniet molestias, debitis commodi nemo deserunt eaque aperiam voluptates optio vel odit. Quasi doloremque quisquam voluptatum magni facilis!`
 
-export default function () {
+export default function Aboutus() {
 
-                const[data, setData] = useState(false)
+    const [data, setData] = useState(false)
 
     return (
         <div>
@@ -33,15 +33,15 @@ export default function () {
             <div className="flex items-center justify-center">
 
                 <div className="w-[90%] sm:w-[70%] text-sm">
-                        Lorem ipsum dolor sit amet consectetur adipisicing elit. Aliquam, voluptates suscipit. Deserunt soluta expedita recusandae totam earum ex illo dicta, fugit nostrum temporibus porro doloremque. Vero rerum delectus esse ut?  {
-                            data == false ? <span onClick={()=>{setData(!data)}} className="text-xl font-semibold cursor-pointer">Read More...</span> : historyData
-                        }
+                    Lorem ipsum dolor sit amet consectetur adipisicing elit. Aliquam, voluptates suscipit. Deserunt soluta expedita recusandae totam earum ex illo dicta, fugit nostrum temporibus porro doloremque. Vero rerum delectus esse ut?  {
+                        data == false ? <span onClick={() => { setData(!data) }} className="text-xl font-semibold cursor-pointer">Read More...</span> : historyData
+                    }
                 </div>
 
             </div>
             <div className="flex flex-col items-center justify-center">
                 <div className="text-5xl italic font-semibold mt-10">Our Teammates</div>
-                       <TeammatesBox /> 
+                <TeammatesBox />
             </div>
         </div>
     )

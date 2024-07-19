@@ -1,16 +1,18 @@
 'use client';
 
+import { formatFileSize } from '@edgestore/react/utils';
 import { UploadCloudIcon, X } from 'lucide-react';
 import * as React from 'react';
-import { DropzoneOptions, useDropzone } from 'react-dropzone';
+import { useDropzone, type DropzoneOptions } from 'react-dropzone';
 import { twMerge } from 'tailwind-merge';
 
 const variants = {
-  base: 'relative rounded-md flex justify-center items-center flex-col cursor-pointer min-h-[150px] min-w-[200px] border border-dashed border-gray-300 transition-colors duration-200 ease-in-out',
+  base: 'relative rounded-md flex justify-center items-center flex-col cursor-pointer min-h-[150px] min-w-[200px] border border-dashed border-gray-400 dark:border-gray-300 transition-colors duration-200 ease-in-out',
   image:
-    'border-0 p-0 min-h-0 min-w-0 relative shadow-md bg-slate-900 rounded-md',
+    'border-0 p-0 min-h-0 min-w-0 relative shadow-md bg-slate-200 dark:bg-slate-900 rounded-md',
   active: 'border-2',
-  disabled: 'bg-gray-700 cursor-default pointer-events-none bg-opacity-30',
+  disabled:
+    'bg-gray-200 border-gray-300 cursor-default pointer-events-none bg-opacity-30 dark:bg-gray-700',
   accept: 'border border-blue-500 bg-blue-500 bg-opacity-10',
   reject: 'border border-red-700 bg-red-700 bg-opacity-10',
 };
@@ -141,7 +143,7 @@ const SingleImageDropzone = React.forwardRef<HTMLInputElement, InputProps>(
             />
           ) : (
             // Upload Icon
-            <div className="flex flex-col items-center justify-center text-xs object-cover object-center text-gray-400">
+            <div className="flex flex-col items-center justify-center text-xs text-gray-400">
               <UploadCloudIcon className="mb-2 h-7 w-7" />
               <div className="text-gray-400">drag & drop to upload</div>
               <div className="mt-3">
@@ -159,8 +161,12 @@ const SingleImageDropzone = React.forwardRef<HTMLInputElement, InputProps>(
                 void onChange?.(undefined);
               }}
             >
-              <div className="flex h-5 w-5 items-center justify-center rounded-md border border-solid border-white/70 bg-black transition-all duration-300 hover:h-6 hover:w-6">
-                <X className="text-white/70" width={16} height={16} />
+              <div className="flex h-5 w-5 items-center justify-center rounded-md border border-solid border-gray-500 bg-white transition-all duration-300 hover:h-6 hover:w-6 dark:border-gray-400 dark:bg-black">
+                <X
+                  className="text-gray-500 dark:text-gray-400"
+                  width={16}
+                  height={16}
+                />
               </div>
             </div>
           )}
@@ -184,7 +190,7 @@ const Button = React.forwardRef<
         // base
         'focus-visible:ring-ring inline-flex cursor-pointer items-center justify-center rounded-md text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-1 disabled:pointer-events-none disabled:opacity-50',
         // color
-        'border border-gray-600 bg-gray-500 text-gray-100 shadow hover:bg-gray-600',
+        'border border-gray-400 text-gray-400 shadow hover:bg-gray-100 hover:text-gray-500 dark:border-gray-600 dark:text-gray-100 dark:hover:bg-gray-700',
         // size
         'h-6 rounded-md px-2 text-xs',
         className,
@@ -195,20 +201,5 @@ const Button = React.forwardRef<
   );
 });
 Button.displayName = 'Button';
-
-function formatFileSize(bytes?: number) {
-  if (!bytes) {
-    return '0 Bytes';
-  }
-  bytes = Number(bytes);
-  if (bytes === 0) {
-    return '0 Bytes';
-  }
-  const k = 1024;
-  const dm = 2;
-  const sizes = ['Bytes', 'KB', 'MB', 'GB', 'TB', 'PB', 'EB', 'ZB', 'YB'];
-  const i = Math.floor(Math.log(bytes) / Math.log(k));
-  return `${parseFloat((bytes / Math.pow(k, i)).toFixed(dm))} ${sizes[i]}`;
-}
 
 export { SingleImageDropzone };

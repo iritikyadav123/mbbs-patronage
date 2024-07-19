@@ -10,7 +10,7 @@ import { SingleImageDropzone } from "./single-image-dropzone";
 export default function ResigestrationCard() {
     const [file, setFile] = useState<File>();
     const [progress, setProgress] = useState(0);
-   
+
     const { edgestore } = useEdgeStore();
     let name = "";
     const [stuData, setStuData] = useState({
@@ -20,7 +20,7 @@ export default function ResigestrationCard() {
         neetScore: "",
 
     })
-    let urls:any;
+    let urls: any;
     async function handleClick() {
         if (file) {
             const res = await edgestore.myPublicImage.upload({
@@ -29,16 +29,16 @@ export default function ResigestrationCard() {
                     setProgress(progress);
                 },
             });
-             urls = res.url.toString();
+            urls = res.url.toString();
         }
-        const response = await stuRegister({ stuData, urls});
+        const response = await stuRegister({ stuData, urls });
         alert(response + " register sucessfully");
         setStuData({
             name: "",
             surname: "",
             neetRoll: "",
             neetScore: "",
-           
+
         })
         setFile(undefined);
 
@@ -86,7 +86,7 @@ export default function ResigestrationCard() {
 
 
 
-                <Button onClick={handleClick} className="" children="submit form" />
+                <Button onClick={handleClick} className=""  >submit form</Button>
             </div>
         </div>
     )

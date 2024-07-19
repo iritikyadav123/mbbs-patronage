@@ -39,13 +39,13 @@ export default function TeammatesBox() {
     return (
         <div className=" mt-[7rem] w-[95%] md:w-[80%] grid justify-items-center gap-10 grid-cols-12 shadow-lg shadow-gray-200 p-5">
 
-             {
-                 contentData.map((item, index) => (
+            {
+                contentData.map((item, index) => (
                     <div key={index} className="col-span-10 sm:col-span-6 lg:col-span-4 ">
-                    <Card contantData={item} />
-                </div>
-                 ))
-             }
+                        <Card contantData={item} />
+                    </div>
+                ))
+            }
         </div>
     )
 }

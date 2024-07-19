@@ -6,56 +6,56 @@ import prisma from "../../../../db";
 
 
 
-export   async function getDonationDetails(){
+export async function getDonationDetails() {
   const session = await getServerSession();
   const response = await prisma.donerInfo.findMany({
-      where : {
-        //@ts-ignore
-         userId : session?.user?.id
-      },
-      select : {
-        amount : true
-      }
+    where: {
+      //@ts-ignore
+      userId: session?.user?.id
+    },
+    select: {
+      amount: true
+    }
   })
-    return response
+  return response
 }
 
-export   async function writeMessage(message : string,section : boolean, id : number) {
+export async function writeMessage(message: string, section: boolean, id: number) {
   const response = await prisma.scholarInfo.update({
-      where : {
-         userId : id
-      },
-      data : {
-        message : message,
-        section : section
-      }
+    where: {
+      userId: id
+    },
+    data: {
+      message: message,
+      section: section
+    }
   })
-  if(!response) {
+  if (!response) {
     return false;
   }
   return true;
 }
 
-export async function getApplication(userId : any) {
-  
+export async function getApplication(userId: any) {
+
   const response = await prisma.scholarInfo.findFirst({
-    where : {
-      userId : userId,
-  }
-  }) 
-    return response;
+    where: {
+      userId: userId,
+    }
+  })
+  return response;
 }
 
 export async function findallReview() {
   const res = await prisma.scholarInfo.findMany({
-    where : {
-       section : true
+    where: {
+      section: true
     },
-    select : {
-      message : true,
-      image : true,
-      name : true,
-      surname : true
+    select: {
+      message: true,
+      image: true,
+      name: true,
+      surname: true
     }
   })
   return res;

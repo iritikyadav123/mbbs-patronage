@@ -7,10 +7,10 @@ import { EdgeStoreProvider } from '@/lib/edgestore';
 export const Providers = ({ children }: { children: React.ReactNode }) => {
   return (
     <SessionProvider>
-        <EdgeStoreProvider>
+      <EdgeStoreProvider>
         {children}
-          </EdgeStoreProvider> 
-     
+      </EdgeStoreProvider>
+
     </SessionProvider>
   );
 };

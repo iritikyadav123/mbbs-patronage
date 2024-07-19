@@ -8,7 +8,7 @@ import { submitDonation } from "@/app/api/doner/route";
 interface donerProps  {
     name : string;
     surname: string;
-    ammount: string;
+    amount: string;
     message: string;
     address: string;
 }
@@ -17,19 +17,19 @@ export default function Donate() {
     const [donerData, setDonerData] = useState<donerProps>({
          name : "",
          surname: "",
-         ammount: "",
+         amount: "",
          message : "",
          address : "",
     })
 
      async function handleClick() {
-         const res = await submitDonation({donerData});
+          const res = await submitDonation({donerData});
          alert(res + " you are successfully donte money");
          setDonerData(
           {
             name : "",
             surname: "",
-            ammount: "",
+            amount: "",
             message : "",
             address : "",
        }
@@ -54,11 +54,11 @@ export default function Donate() {
       ...prevData,
       address: e.target.value
     }))}/></div>
-           <div className="font-semibold text-gray-700"><span>Ammount</span> <Input className="w-20" type="text" placeholderValue="Ammount" value={donerData.ammount} onChange={(e) =>  setDonerData(prevData => ({
+           <div className="font-semibold text-gray-700"><span>Amount</span> <Input className="w-20" type="text" placeholderValue="Amount" value={donerData.amount} onChange={(e) =>  setDonerData(prevData => ({
       ...prevData,
-      ammount: e.target.value
+      amount: e.target.value
     }))}/></div>
-           <Button onClick={handleClick} className="hidden sm:block w-[10rem]" children="submit" />
+           <Button onClick={handleClick} className="hidden sm:block w-[10rem]" >submit</Button>
            </div>
            <div className="mt-5 ml-5">
             <div className="mb-5 font-semibold text-gray-700">Message for students</div>
@@ -67,7 +67,7 @@ export default function Donate() {
       message: e.target.value
     }))}}/>
            </div>
-           <div className="sm:hidden flex mt-5 mb-10  items-center justify-end mr-10"><Button onClick={handleClick} className="w-[10rem]" children="submit" /></div>
+           <div className="sm:hidden flex mt-5 mb-10  items-center justify-end mr-10"><Button onClick={handleClick} className="w-[10rem]">submit</Button></div>
 
   </div>
     )
