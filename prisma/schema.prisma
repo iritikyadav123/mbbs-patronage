@@ -1,0 +1,50 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Organization {
+  id           Int @id @default(1)
+  fund         Int
+  donorCount   Int
+  scholarCount Int
+}
+
+model User {
+  id          Int          @id @default(autoincrement())
+  email       String       @unique
+  password    String?
+  donorInfo   DonerInfo[]
+  scholarInfo ScholarInfo?
+  agible      Boolean      @default(true)
+}
+
+model DonerInfo {
+  id      Int    @id @default(autoincrement())
+  name    String
+  amount  String
+  surname String
+  address String
+  message String
+  user    User   @relation(fields: [userId], references: [id])
+  userId  Int
+}
+
+model ScholarInfo {
+  id        Int     @id @default(autoincrement())
+  name      String
+  surname   String
+  neetRoll  String  @unique
+  neetScore Int
+  message   String?
+  image     String
+  section   Boolean @default(false)
+  user      User    @relation(fields: [userId], references: [id])
+  userId    Int     @unique
+
+  @@index([neetRoll])
+}
