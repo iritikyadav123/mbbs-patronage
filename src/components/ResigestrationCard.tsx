@@ -23,9 +23,11 @@ export default function ResigestrationCard() {
     let urls: any;
     async function handleClick() {
         if (file) {
-            const res = await edgestore.myPublicImage.upload({
+            const res = await edgestore.
+             //@ts-ignore
+            myPublicImage.upload({
                 file,
-                onProgressChange: (progress) => {
+                onProgressChange: (progress : any) => {
                     setProgress(progress);
                 },
             });

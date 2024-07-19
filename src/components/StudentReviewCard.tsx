@@ -17,7 +17,7 @@ export default function StudentReiewCard({ reviewProp }: { reviewProp: any }) {
                         alt="Review Image"
                         className="object-cover object-center ring-2 ring-stone-200 rounded-full h-14 w-14"
                     /></div>
-                <div className=" max-w-[10rem] ml-2 ">
+                <div className="w-auto ml-2 ">
                     <div className="text-2xl font-semibold text-slate-800">{reviewProp.name} {reviewProp.surname}</div>
                     <div className="text-xl font-medium text-gray-700">MBBS</div>
                 </div>
