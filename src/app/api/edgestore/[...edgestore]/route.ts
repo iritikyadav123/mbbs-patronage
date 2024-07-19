@@ -4,17 +4,20 @@ import {
   createEdgeStoreNextHandler,
 } from "@edgestore/server/adapters/next/app";
 import { z } from "zod";
+let handler,es, edgeStoreRouter
+try {
+  es = initEdgeStore.create();
 
-const es = initEdgeStore.create();
-
-const edgeStoreRouter = es.router({
+  edgeStoreRouter = es.router({
   myPublicImage: es.imageBucket(),
 })
 
-const handler = createEdgeStoreNextHandler({
+ handler = createEdgeStoreNextHandler({
   router: edgeStoreRouter,
 })
-
+}catch(err) {
+  console.log(err);
+}
 export { handler as Get, handler as POST };
 
 export type EdgeStoreRouter = typeof edgeStoreRouter;
