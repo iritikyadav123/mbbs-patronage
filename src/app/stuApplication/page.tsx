@@ -1,9 +1,11 @@
 import ApplicationCard from "@/components/ApplicationCard";
-import getStudentRegistration from "../api/studentRes/route";
+import getStudentRegistration, { stuRevalidate } from "../api/studentRes/route";
 
 
 export default async function StuApplication() {
     const stuApplication = await getStudentRegistration();
+    { next: { tags: ['stuApplication'] } }
+    stuRevalidate();
     return (
         <div className="flex flex-col items-center justify-center no-scroller">
             <div className="text-5xl text-center font-semibold text-black italic mt-10 mb-10">Student Applications</div>

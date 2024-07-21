@@ -1,6 +1,7 @@
 "use server"
 import prisma from "../../../../db";
 import { getServerSession } from "next-auth";
+import { revalidateTag } from "next/cache";
 
 interface DonationProp {
     name: string;
@@ -41,7 +42,7 @@ export async function submitDonation({ donerData }: { donerData: any }) {
     return donation.name;
       
 }
-export const dynamic = 'force-dynamic';
+
 export async function getDonors() {
 
     try {
@@ -60,4 +61,9 @@ export async function getDonors() {
       console.error("Error fetching donors:", error);
       throw new Error("Failed to fetch donors");
     }
+  }
+ 
+
+  export   async function revalidate() {
+    revalidateTag('donorData')
   }

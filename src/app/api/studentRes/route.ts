@@ -1,6 +1,7 @@
 "use server"
 import prisma from "../../../../db";
 import { getServerSession } from "next-auth"
+import { revalidateTag } from "next/cache";
 
 interface stuProps {
     name: string,
@@ -47,3 +48,7 @@ export default async function getStudentRegistration() {
     })
     return response;
 }
+
+export   async function stuRevalidate() {
+    revalidateTag('stuApplication')
+  }
