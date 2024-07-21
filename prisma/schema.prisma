@@ -4,7 +4,7 @@ generator client {
 
 datasource db {
   provider = "postgresql"
-  url      = "postgres://avnadmin:AVNS_BofirGx1ENXgSjRx8P6@pg-3016100a-medium-clone-ritik123.k.aivencloud.com:12631/defaultdb?sslmode=require"
+  url      = "postgres://default:RfejwGkza04I@ep-solitary-mud-a4z3uebh.us-east-1.aws.neon.tech:5432/verceldb?sslmode=require"
 }
 
 model Organization {
