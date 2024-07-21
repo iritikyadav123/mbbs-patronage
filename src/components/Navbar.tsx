@@ -3,13 +3,32 @@
 import Link from "next/link"
 import { Logo } from "./ui/Logo"
 import { signOut, useSession } from "next-auth/react";
-import { useState } from "react";
+import { useState, useEffect, useRef } from "react";
 export const Navbar = () => {
   const session = useSession();
   const [menubar , setMenubar] = useState(false);
+  const menuRef = useRef<HTMLDivElement>(null);
   let userid = 0;
   //@ts-ignore
   userid = session.data?.user?.id
+
+  const handleClickOutside = (event: MouseEvent) => {
+    if (menuRef.current && !menuRef.current.contains(event.target as Node)) {
+      setMenubar(false);
+    }
+  };
+  const handleScroll = () => {
+    setMenubar(false);
+  };
+
+  useEffect(() => {
+    document.addEventListener('mousedown', handleClickOutside);
+    window.addEventListener('scroll', handleScroll);
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+      window.removeEventListener('scroll', handleScroll);
+    };
+  }, []);
 
   const handleScrollToTop = () => {
     window.scrollTo({ top: 10000, behavior: 'smooth' });
@@ -27,7 +46,8 @@ export const Navbar = () => {
                         <img src="/menu.png" className="h-6 w-7  text-black active:h-7 " />
                     </div>
                     { menubar == true ?
-                       <div className="absolute rounded-lg sm:hidden left-[5%] top-[90%] border-4  p-4 w-[75%] flex flex-col gap-2 text-xl  font-medium bg-gray-200 backdrop-blur-xl">
+                       <div ref={menuRef}
+                       id="menu-list"  className="absolute rounded-lg sm:hidden left-[5%] top-[90%] border-4  p-4 w-[75%] flex flex-col gap-2 text-xl  font-medium bg-gray-200 backdrop-blur-xl">
                             <Link href={'/'} className="border-b-2  pt-1 rounded-lg pb-2  active:font-extrabold cursor-pointer pl-2 hover:bg-gray-300  ">HOME</Link>
                             <Link href={'aboutus'} className="border-b-2  pt-1 rounded-lg pb-2  active:font-extrabold cursor-pointer pl-2  hover:bg-gray-300">About us</Link>
                             <div onClick={handleScrollToTop}  className="border-b-2  pt-1 rounded-lg pb-2  active:font-extrabold cursor-pointer pl-2 hover:bg-gray-300 " >Contact</div>
