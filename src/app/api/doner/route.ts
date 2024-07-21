@@ -10,7 +10,7 @@ interface DonationProp {
     address: string;
 }
 
-export async function submitDonation({ donerData }: { donerData: DonationProp }) {
+export async function submitDonation({ donerData }: { donerData: any }) {
     const session = await getServerSession();
     const userEmail = session?.user?.email;
 
@@ -18,7 +18,7 @@ export async function submitDonation({ donerData }: { donerData: DonationProp })
         throw new Error("User is not authenticated");
     }
 
-    const user = await prisma.user.findUnique({
+    const user = await prisma.user.findFirst({
         where: {
             email: userEmail.toString(),
         },
@@ -39,9 +39,11 @@ export async function submitDonation({ donerData }: { donerData: DonationProp })
         },
     });
     return donation.name;
+      
 }
-
+export const dynamic = 'force-dynamic';
 export async function getDonors() {
+
     try {
       const donorData = await prisma.donerInfo.findMany({
         select: {
