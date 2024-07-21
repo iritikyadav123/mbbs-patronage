@@ -3,6 +3,8 @@ import { getServerSession } from "next-auth"
 
 import prisma from "../../../../db";
 
+import { revalidateTag } from "next/cache";
+
 
 
 
@@ -59,4 +61,8 @@ export async function findallReview() {
     }
   })
   return res;
+}
+
+export   async function reviewRevalidate() {
+  revalidateTag('reviewResponse')
 }

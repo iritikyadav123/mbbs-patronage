@@ -2,12 +2,15 @@
 import StudentReiewCard from "@/components/StudentReviewCard";
 import { TagLine } from "@/components/TagLine";
 import Link from "next/link";
-import { findallReview } from "./api/user/route";
+import { findallReview, reviewRevalidate } from "./api/user/route";
 
 
 
 export default async function Home() {
    const reviewResponse = await findallReview();
+   { next: { tags: ['reviewResponse'] } }
+    reviewRevalidate();
+
 
    return (
       <div >
